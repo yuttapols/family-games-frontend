@@ -1,0 +1,85 @@
+@if (revDataList.length > 0) {
+  <div class="row">
+    <div class="col-12">
+      @for (item of revDataList; track $index) {
+        @if ($index == 0) {
+          <app-card [hidHeader]="true" cardClass="bg-secondary order-card">
+            <h4 class="text-white text-center">หมายเลขการจองคิว</h4>
+            <h1 class="text-white text-center display-1 fw-blod"><u>{{item?.revNo}}{{item?.revNoNumber | number:'3.0'}}</u></h1>
+            <h3 class="text-white text-center">ประเภทที่นั่ง : {{item?.seatTypeName}}</h3>
+            <h3 class="text-white text-center">รหัสลูกค้า : {{item?.createBy}}</h3>
+            <hr class="border text-white">
+            <div class="row">
+              <div class="col-6 text-end">
+                <button class="btn-9" (click)="onUpdate(item.id,'2')"><i class="fa fa-check-circle" aria-hidden="true"></i> ยืนยันจองคิว</button>
+              </div>
+              <div class="col-6">
+                <button class="btn-10" (click)="onUpdate(item.id,'4')"><i class="fa fa-times" aria-hidden="true"></i> ไม่แสดงตน</button>
+              </div>
+            </div>
+          </app-card>
+        }
+      }
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <app-card [hidHeader]="true" cardClass="bg-light order-card">
+        <table class="table">
+          <thead >
+            <tr>
+              <th >#</th>
+              <th >หมายเลขจองคิว</th>
+              <th >ประเภทที่นั่ง</th>
+              <th >รหัสลูกค้าที่จอง</th>
+              <th >วันเวลาที่จอง</th>
+              <th ></th>
+
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of revDataList; track $index) {
+              @if ($index > 0) {
+                <tr >
+                  <td>{{$index + 1}}</td>
+                  <td>{{item?.revNo}}{{item?.revNoNumber | number:'3.0'}}</td>
+                  <td>{{item?.seatTypeName}}</td>
+                  <td>{{item?.createBy}}</td>
+                  <td>{{item?.revTime| date : 'dd/MM/yyyy HH:mm:ss'}}</td>
+                  <td><i class="fa fa-arrow-circle-up text-success"></i></td>
+                </tr>
+              }
+            }
+          </tbody>
+        </table>
+      </app-card>
+    </div>
+
+  </div>
+}
+
+
+@if (revDataList.length == 0) {
+  <div class="row">
+    <div class="col-12">
+      <app-card [hidHeader]="true" cardClass="bg-secondary order-card">
+        <hr class="border text-white">
+        <h4 class="text-white text-center">หมายเลขการจองคิว</h4>
+        <h1 class="text-white text-center display-1 fw-blod"> ขณะนี้ยังไม่มีลูกค้าจองคิว</h1>
+        <!-- <h1 class="text-white text-center">คุณ : xcxxx fdfd</h1> -->
+        <hr class="border text-white">
+        <!-- <div class="row">
+          <div class="col-6 text-end">
+            <button class="btn-9" ><i class="fa fa-check-circle" aria-hidden="true"></i> ยืนยันจองคิว</button>
+          </div>
+          <div class="col-6">
+            <button class="btn-10" ><i class="fa fa-times" aria-hidden="true"></i> ไม่แสดงตน</button>
+          </div>
+        </div> -->
+      </app-card>
+    </div>
+  </div>
+}
+
+

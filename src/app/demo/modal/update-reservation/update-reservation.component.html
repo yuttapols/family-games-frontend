@@ -1,0 +1,31 @@
+<div class="modal modal-lg fade" #updateReservation id="updateReservation" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header justify-content-md-center">
+        <div class="modal-title">
+          <div class="text-center">
+            <img  src="assets/images/table/cancel-header.png"  width="170" height="180"  />
+          </div>
+
+          <div class="row pt-3">
+            <h3 class="fw-bold">ฮือ T_T ทำไมจะยกเลิกคิวละฮะ</h3>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+          @for (item of reasonCancelAll; track $index) {
+            <div class="form-check form-switch">
+              <input class="form-check-input" [formControl]="reasonCancelId" type="radio" [value]="item.id"  id={{item.id}} [checked]="$index == 0">
+              <label class="form-check-label " for={{item.id}}>
+                {{item.reasonNameTh}}
+              </label>
+            </div>
+          }
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success" (click)="onUpdate()"><i class="fa fa-save"></i> ยืนยันการยกเลิก</button>
+        <button type="button" class="btn btn-danger" (click)="closeModal()"><i class="fa fa-times"></i> ปิด</button>
+      </div>
+    </div>
+  </div>
+</div>

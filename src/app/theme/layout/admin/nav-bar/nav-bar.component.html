@@ -1,0 +1,17 @@
+<div class="m-header">
+  <a href="javascript:" class="mobile-menu" id="mobile-collapse" title="Click to Menu Collapse" (click)="navCollapse()"><span></span></a>
+  <a href="javascript:" class="header-mobile-collapse" id="mobile-collapse1" (click)="navCollapseMob()">
+    <i class="feather icon-menu"></i>
+  </a>
+  <a [routerLink]="['/analytics']" class="b-brand">
+    <img id="main-logo" src="assets/images/logo-header.png" width="50" height="47" alt="logo-img" class="logo"  />
+    <h5 class="text-center text-danger pt-2">M</h5><h5 class="text-center text-white pt-2">oo Kratha</h5>
+  </a>
+  <a class="mob-toggler" [ngClass]="{ on: this.menuClass }" href="javascript:" (click)="toggleMobOption()">
+    <i class="feather icon-more-vertical"></i>
+  </a>
+</div>
+<div class="collapse navbar-collapse" [style.display]="this.collapseStyle">
+  <app-nav-left class="me-auto"></app-nav-left>
+  <app-nav-right class="ms-auto"></app-nav-right>
+</div>

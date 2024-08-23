@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-xl-12">
+    <app-card cardTitle="" [options]="false" blockClass="table-border-style">
+
+      <!-- <div class="row pb-4">
+        <div class="col-md-3" >
+          <label  class="badge text-bg-info text-wrap">หมวดหมู่สินค้า</label>
+          <select class="form-select">
+            <option  value="">ทั้งหมด</option>
+            <option *ngFor="let item of productCategoryList" value="{{item.id}}"  >{{item.id}} - {{item.productCategoryNameTh}}</option>
+          </select>
+        </div>
+      </div> -->
+
+
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead >
+            <tr>
+              <th>#</th>
+              <th>NO.</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Telephone</th>
+              <th>Email</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of customers; track $index) {
+              <tr>
+                <td>{{$index + 1}}</td>
+                <td>{{item.customerNo}}</td>
+                <td>{{item.fristName}}</td>
+                <td>{{item.lastName}}</td>
+                <td>{{item.telephone | telephonePipe}}</td>
+                <td>{{item.email}}</td>
+                <td>
+                  <button class="btn btn-sm  btn-warning" (click)="editCustomerModal(item.userId)"><i class="fa fa-pen"></i></button>
+                  <button class="btn btn-sm  btn-danger" (click)="deleteCustomer(item.userId)"><i class="fa fa-trash"></i></button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+        @if (null == this.customers || this.customers.length == 0) {
+          <p class="text-center text-danger fw-bold"> ** ไม่พบข้อมูล</p>
+        }
+      </div>
+    </app-card>
+  </div>
+</div>
+<app-update-profile></app-update-profile>

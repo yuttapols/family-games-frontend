@@ -1,0 +1,118 @@
+<div class="auth-wrapper">
+  <div class="auth-content">
+    <div class="card">
+      <div class="row align-items-center text-center">
+        <div class="col-md-12">
+          <div class="card-body">
+            <img src="assets/images/Logo_a1.png" alt="logo" class="img-fluid mb-4"  width="200" height="200"/>
+            <h4 class="mb-3 f-w-400">ลงทะเบียน</h4>
+            <hr>
+            <form [formGroup]="signUpForm" (ngSubmit)="initSaveCustomer()">
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon2"><i class="feather icon-user-plus"></i></span>
+                <input type="text" formControlName="fristName" class="form-control" placeholder="Fristname" [ngClass]="{ 'is-invalid': submitted && f['fristName'].errors }"/>
+                @if (submitted && f['fristName'].errors) {
+                  <div class="invalid-feedback text-start">
+                    @if (f['fristName'].errors['required']) {
+                    <div>* กรุณากรอก ชื่อ</div>
+                    }
+                  </div>
+                }
+              </div>
+              
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon2"><i class="feather icon-user-plus"></i></span>
+                <input type="text" formControlName="lastName" class="form-control" placeholder="Lastname" [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }" />
+                @if (submitted && f['lastName'].errors) {
+                  <div class="invalid-feedback text-start">
+                    @if (f['lastName'].errors['required']) {
+                    <div>* กรุณากรอก นามสกุล</div>
+                    }
+                  </div>
+                }
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon2"><i class="feather icon-phone"></i></span>
+                <input type="text" formControlName="telephone" (keypress)="onKeyPress($event)" maxlength="10" class="form-control" placeholder="Telephone" [ngClass]="{ 'is-invalid': submitted && f['telephone'].errors }"/>
+                @if (submitted && f['telephone'].errors) {
+                  <div class="invalid-feedback text-start">
+                    @if (f['telephone'].errors['required']) {
+                    <div>* กรุณากรอกเบอร์โทรศัพท์</div>
+                    }
+                    @if (f['telephone'].errors['minlength']) {
+                      <div>* กรุณากรอกเบอร์โทรศัพท์อย่างน้อย 10 ตัว</div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon2"><i class="feather icon-mail"></i></span>
+                <input type="email" formControlName="email" class="form-control" placeholder="Email address"  [ngClass]="{ 'is-invalid':  f['email'].errors }"/>
+                @if (f['email'].errors) {
+                  <div class="invalid-feedback  text-start">
+                    @if (f['email'].errors['pattern']) {
+                    <div>* กรุณากรอกให้อยู่ในรูปแบบ Email </div>
+                    }
+                  </div>
+                }
+              </div>
+              
+              <hr>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="feather icon-user"></i></span>
+                <input type="text" formControlName="userName" onkeydown="return /[a-zA-Z0-9]/i.test(event.key)" class="form-control" placeholder="Username" [ngClass]="{ 'is-invalid': submitted && f['userName'].errors }" />
+                <div class="input-group-append">
+                  <button type="button" class="btn  btn-success" (click)="checkUsreName()">
+                    <i class="feather icon-check-circle"></i>
+                  </button>
+                </div>
+                @if (submitted && f['userName'].errors) {
+                  <div class="invalid-feedback text-start">
+                    @if (f['userName'].errors['required']) {
+                    <div>* กรุณากรอก username</div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <div class="input-group mb-4">
+                <span class="input-group-text" id="basic-addon3"><i class="feather icon-lock"></i></span>
+                <input type="password" formControlName="password" onkeydown="return /[a-zA-Z0-9]/i.test(event.key)" id="password" class="form-control" placeholder="Password" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+                <div class="input-group-append">
+                  <button class="btn btn-info" type="button" *ngIf="!isShowPassword" (click)="showPassword()"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                  <button class="btn btn-info" type="button" *ngIf="isShowPassword" (click)="showPassword()"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
+                </div>
+                @if (submitted && f['password'].errors) {
+                  <div class="invalid-feedback text-start">
+                    @if (f['password'].errors['required']) {
+                    <div>* กรุณากรอก password</div>
+                    }
+                  </div>
+                }
+              </div>
+              <!-- <div class="form-group text-start mt-2">
+                <div class="checkbox checkbox-primary d-inline">
+                  <input type="checkbox" name="checkbox-fill-2" id="checkbox-fill-2" />
+                  <label for="checkbox-fill-2" class="cr">
+                    Send me the
+                    <a href="javascript:">Newsletter</a>
+                    weekly.
+                  </label>
+                </div>
+              </div> -->
+              <div class="d-grid">
+                <button class="btn btn-primary btn-block mb-4" type="submit"><i class="fa fa-sign-in-alt" aria-hidden="true"></i> สร้างบัญชี</button>
+              </div>
+            </form>
+            
+            <p class="mb-2">
+              คุณมีบัญชีอยู่แล้ว?
+              <a [routerLink]="['/auth/signin']" class="f-w-400">เข้าสู่ระบบ</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

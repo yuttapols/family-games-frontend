@@ -1,0 +1,68 @@
+<div class="modal modal-lg fade" #updateProfile id="updateProfile" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title  fw-bold fs-5"><i class="fa fa-arrow-alt-circle-right text-info"></i> แก้ไขโปรไฟล์</h1>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="updateProfileForm">
+          <div class="row">
+            <div class="col-md-6">
+              <label  class="badge text-bg-info text-wrap">FristName</label>
+              <input type="text"  class="form-control" placeholder="FristName" formControlName="fristName" [ngClass]="{ 'is-invalid': submitted && f['fristName'].errors }">
+              @if (submitted && f['fristName'].errors) {
+                <div class="invalid-feedback text-start">
+                  @if (f['fristName'].errors['required']) {
+                  <div>* กรุณากรอก ชื่อ</div>
+                  }
+                </div>
+              }
+            </div>
+            <div class="col-md-6">
+              <label  class="badge text-bg-info text-wrap">LastName</label>
+              <input type="text"  class="form-control" placeholder="LastName" formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }">
+              @if (submitted && f['lastName'].errors) {
+                <div class="invalid-feedback text-start">
+                  @if (f['lastName'].errors['required']) {
+                  <div>* กรุณากรอก นามสกุล</div>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+          <div class="row pt-1">
+            <div class="col-md-6">
+              <label  class="badge text-bg-info text-wrap">Telephone</label>
+              <input type="text"  class="form-control" (keypress)="onKeyPress($event)" maxlength="10" placeholder="Telephone" formControlName="telephone" [ngClass]="{ 'is-invalid': submitted && f['telephone'].errors }">
+              @if (submitted && f['telephone'].errors) {
+                <div class="invalid-feedback text-start">
+                  @if (f['telephone'].errors['required']) {
+                  <div>* กรุณากรอกเบอร์โทรศัพท์</div>
+                  }
+                  @if (f['telephone'].errors['minlength']) {
+                    <div>* กรุณากรอกเบอร์โทรศัพท์อย่างน้อย 10 ตัว</div>
+                  }
+                </div>
+              }
+            </div>
+            <div class="col-md-6">
+              <label  class="badge text-bg-info text-wrap">Email</label>
+              <input type="email"  class="form-control" placeholder="Email" formControlName="email" [ngClass]="{ 'is-invalid':  f['email'].errors }">
+              @if (f['email'].errors) {
+                <div class="invalid-feedback  text-start">
+                  @if (f['email'].errors['pattern']) {
+                  <div>* กรุณากรอกให้อยู่ในรูปแบบ Email </div>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-success" (click)="onUpdate()"><i class="fa fa-save"></i> Save</button>
+        <button type="button" class="btn btn-danger"  (click)="closeModal()"><i class="fa fa-times"></i> Close</button>
+      </div>
+    </div>
+  </div>
+</div>

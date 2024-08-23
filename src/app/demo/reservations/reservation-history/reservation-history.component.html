@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-xl-12">
+    <app-card cardTitle="" [options]="false" blockClass="table-border-style">
+
+      <!-- <div class="row pb-4">
+        <div class="col-md-3" >
+          <label  class="badge text-bg-info text-wrap">หมวดหมู่สินค้า</label>
+          <select class="form-select">
+            <option  value="">ทั้งหมด</option>
+            <option *ngFor="let item of productCategoryList" value="{{item.id}}"  >{{item.id}} - {{item.productCategoryNameTh}}</option>
+          </select>
+        </div>
+      </div> -->
+
+
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead >
+            <tr>
+              <th>#</th>
+              <th>รหัสผู้จองคิว</th>
+              <th>หมายเลขจองคิว</th>
+              <th>ประเภทจองคิว</th>
+              <th>เวลาจองคิว</th>
+              <th>สถานะ</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of reservationList; track $index) {
+              <tr>
+                <td>{{$index + 1}}</td>
+                <td>{{item.createBy}}</td>
+                <td><strong>{{item.revNo}}{{item?.revNoNumber | number:'3.0'}}</strong> </td>
+                <td>{{item.seatTypeName}}</td>
+                <td>{{item.revTime | date : 'dd/MM/yyyy'}}</td>
+                @if (item.revStatus == '1') {
+                  <td><span class="badge m-r-5 badge-pill bg-warning">กำลังจองคิว</span></td>
+                }
+                @if (item.revStatus == '2') {
+                  <td><span class="badge m-r-5 badge-pill bg-success">จองคิวสำเร็จ</span></td>
+                }
+                @if (item.revStatus == '3' || item.revStatus == '4') {
+                  <td><span class="badge m-r-5 badge-pill bg-danger">ยกเลิกจองคิว</span></td>
+                }
+
+              </tr>
+            }
+          </tbody>
+        </table>
+        <!-- @if (null == this.customers || this.customers.length == 0) {
+          <p class="text-center text-danger fw-bold"> ** ไม่พบข้อมูล</p>
+        } -->
+      </div>
+    </app-card>
+  </div>
+</div>

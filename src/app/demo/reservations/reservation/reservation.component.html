@@ -1,0 +1,163 @@
+<div class="container-fuild">
+  @if (!isCancelMaximum) {
+    <div class="row justify-content-md-center">
+      @if (!isReservation) {
+        <div class="col-md-12">
+          <app-card
+            [hidHeader]="true"
+            blockClass="seo-statustic"
+            footerClass="seo-chart border border-top-0 p-0 overflow-hidden"
+            [isCardFooter]="true"
+            cardClass="bg-c-yellow"
+          >
+          <div class="row">
+            <div class="col-md-3 text-center">
+              <img id="main-logo" src="assets/images/logo-header.png" width="80" height="80" alt="logo-img" class="logo"  />
+            </div>
+            <div class="col-md-6 pt-4 text-center">
+              <h5 class="fw-blod">ร้าน Moo Kratha</h5>
+              <h6 class=""><i class="fa fa-hourglass-half" aria-hidden="true"></i> รอคิวอีก : {{revWaiting}}</h6>
+            </div>
+          </div>
+          <hr class="border border-danger">
+          <h6 class="fw-blod"> กรุณาเลือกประเภท</h6>
+          <div class="row">
+            @for (item of seatTypeAll; track $index) {
+              <div class="col-md-3 border-end">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="radio" [formControl]="seatTypeId" [value]="item.id"  id={{item.id}}>
+                  <label class="form-check-label " for={{item.id}}>
+                    {{item.seatTypeNameTh}} {{item.seatTypeUnit}}
+                  </label>
+                </div>
+                <div class="text-center">
+                  <img id="main-logo" src="assets/images/table/table.png" width="80" height="80" alt="logo-img" class="logo" />
+                </div>
+              </div>
+            }
+          </div>
+          <hr class="border border-danger">
+          <!-- <div class="row justify-content-md-center">
+            <div class="col-md-8 text-center">
+              <div class="input-group input-group-lg">
+                <button class="btn btn-danger" type="button" id="button-addon1">-</button>
+                <input type="text" class="form-control" disabled>
+                <button class="btn btn-success" type="button" id="button-addon1">+</button>
+              </div>
+            </div>
+          </div> -->
+          <!-- <hr class="border border-danger"> -->
+          <div class="app-card-footer">
+            <div class="row">
+              <button type="button" class="btn btn-lg button-19" type="button" (click)="initSaveRev()"><i class="fa fa-paper-plane" aria-hidden="true"></i> จองคิว</button>
+            </div>
+
+          </div>
+          </app-card>
+        </div>
+      }
+
+      @if (isReservation) {
+        <div class="col-md-12">
+          <app-card
+            [hidHeader]="true"
+            blockClass="seo-statustic"
+            footerClass="seo-chart border border-top-0 p-0 overflow-hidden"
+            [isCardFooter]="true"
+            cardClass="bg-c-yellow"
+          >
+          <div class="row">
+            <div class="col-3 text-center">
+              <img id="main-logo" src="assets/images/logo-header.png" width="80" height="80" alt="logo-img" class="logo"  />
+            </div>
+            <div class="col-6 pt-4 text-center">
+              <h3 class="fw-blod">ร้าน Moo Kratha</h3>
+              <h5 class=""><i class="fa fa-hourglass-half"></i> รออีก(คิว) : {{userRevWaiting}} </h5>
+              @if (userRevWaiting == 0) {
+                <h4 class="text-danger" ><i class="fa fa-exclamation-triangle"></i> ตอนนี้ถึงคิวของท่านแล้ว โปรดมาแสดงตน </h4>
+              }
+              @if (userRevWaiting != 0) {
+                <h6 class="" ><i class="fa fa-clock"></i> เวลาของท่านโดยประมาณ : {{userRevWaiting * 10}}-{{userRevWaiting * 15}} นาที</h6>
+              }
+
+            </div>
+          </div>
+          <hr class="border border-danger">
+          <div class="row text-center">
+            <h5>หมายเลขคิวของท่าน</h5>
+          </div>
+          <div class="row text-center">
+            <h1>{{revData?.revNo}}{{revData?.revNoNumber | number:'3.0'}}</h1>
+          </div>
+          <hr class="border border-danger">
+          <div class="row">
+            <div class="col-6">
+              <h6><i class="fa fa-calendar"></i> {{revData?.revTime| date : 'dd/MM/yyyy'}}</h6>
+            </div>
+            <div class="col-6 text-end">
+              <h6><i class="fa fa-clock"></i> {{revData?.revTime| date : 'dd/MM/yyyy'}}</h6>
+            </div>
+          </div>
+          <div class="row pt-2">
+            <div class="col-6">
+              <h6><i class="fa fa-random"></i> ประเภทที่นั่ง</h6>
+            </div>
+            <div class="col-6 text-end">
+              @for (item of seatTypeAll; track $index) {
+                @if (item.id == revData?.seatTypeId) {
+                  <h6><i class="fa fa-users"></i> {{item.seatTypeNameTh}} {{item.seatTypeUnit}}</h6>
+                }
+              }
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class="text-danger"><i class="fa fa-exclamation-circle"></i> ** กรุณามาก่อนเวลาโดยประมาณเพื่อมาแสดงตน</h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class="text-danger"><i class="fa fa-exclamation-circle"></i> ** ขอสงวนสิทธิ์ในการข้ามคิว กรณีลูกค้าไม่แสดงตน</h6>
+            </div>
+          </div>
+          <div class="app-card-footer">
+            <div class="row">
+              <button type="button" class="btn btn-lg btn-danger" (click)="openCancelModal()"><i class="fa fa-times" ></i> ยกเลิกคิว</button>
+            </div>
+
+          </div>
+          </app-card>
+        </div>
+      }
+    </div>
+  }
+
+  @if (isCancelMaximum) {
+    <div class="row justify-content-md-center">
+      <app-card
+        [hidHeader]="true"
+        blockClass="seo-statustic"
+        footerClass="seo-chart border border-top-0 p-0 overflow-hidden"
+        [isCardFooter]="true"
+        cardClass="bg-c-yellow"
+      >
+        <div class="row">
+          <div class="col-12 text-center">
+            <img id="main-logo" src="assets/images/table/cancel-header.png" width="250" height="250" alt="logo-img" class="logo"  />
+          </div>
+        </div>
+        <div class="row text-center pt-2 ">
+          <h1 class="text-danger"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> ท่านได้ยกเลิกการจองคิวครบจำนวนที่ระบบกำหนด</h1>
+        </div>
+        <div class="row text-center pt-2 ">
+          <h1 class="text-danger"> กรุณาทำรายการใหม่ในวันถัดไปนายท่าน</h1>
+        </div>
+        <hr class="border border-danger">
+
+      </app-card>
+    </div>
+  }
+
+</div>
+<app-update-reservation></app-update-reservation>
